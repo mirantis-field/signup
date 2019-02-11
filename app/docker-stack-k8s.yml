@@ -8,7 +8,7 @@ services:
         - node.platform.os == linux
     image: database
     environment:
-      MYSQL_ROOT_PASSWORD: mysql_password
+      MYSQL_ROOT_PASSWORD: mysql-password
     networks:
       back-tier:
     ports:
@@ -48,5 +48,5 @@ networks:
     external: true
 
 secrets:
-  mysql_password:
-   file: ./secrets/mysql_password 
+  mysql-password:
+   file: ../secrets/mysql_password 
