@@ -61,21 +61,21 @@ node {
                         sh """
                             docker login ${env.DOCKER_REGISTRY_HOSTNAME} -u ${USERNAME} -p ${PASSWORD}
 
-                            echo "Signing and pushing AtSea Web Server Docker image"
+                            echo "Signing and pushing Signup Web Server Docker image"
                             # docker trust signer add --key cert.pem ${USERNAME} ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_WEB_REPOSITORY}
                             docker trust key load key.pem
                             docker tag ${docker_web_image.id} ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_WEB_REPOSITORY}:${DOCKER_IMAGE_TAG}
                             docker push ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_WEB_REPOSITORY}:${DOCKER_IMAGE_TAG}
                             docker trust inspect --pretty ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_WEB_REPOSITORY}:${DOCKER_IMAGE_TAG}
 
-                            echo "Signing and pushing AtSea API Server Docker image"
+                            echo "Signing and pushing Signup API Server Docker image"
                             # docker trust signer add --key cert.pem ${USERNAME} ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_API_REPOSITORY}
                             docker trust key load key.pem
                             docker tag ${docker_api_image.id} ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_API_REPOSITORY}:${DOCKER_IMAGE_TAG}
                             docker push ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_API_REPOSITORY}:${DOCKER_IMAGE_TAG}
                             docker trust inspect --pretty ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_API_REPOSITORY}:${DOCKER_IMAGE_TAG}
 
-                            echo "Signing and pushing AtSea DB Server Docker image"
+                            echo "Signing and pushing Signup DB Server Docker image"
                             # docker trust signer add --key cert.pem ${USERNAME} ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_DB_REPOSITORY}
                             docker trust key load key.pem
                             docker tag ${docker_db_image.id} ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_DB_REPOSITORY}:${DOCKER_IMAGE_TAG}
@@ -113,8 +113,8 @@ node {
         // httpRequest acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON', httpMode: 'POST', ignoreSslErrors: true, responseHandle: 'NONE', url: "${env.DOCKER_UCP_URI}/accounts", requestBody: "{  \"fullName\": \"${env.DOCKER_IMAGE_NAMESPACE_PROD}\",  \"isOrg\": true,  \"name\": \"${env.DOCKER_IMAGE_NAMESPACE_PROD}\" }", customHeaders: [[name: 'Authorization', value: "Bearer ${token}"]]
 
         // /* Create Repositories */
-        // httpRequest acceptType: 'APPLICATION_JSON', authentication: env.DOCKER_REGISTRY_CREDENTIALS_ID, contentType: 'APPLICATION_JSON', httpMode: 'POST', ignoreSslErrors: true, responseHandle: 'NONE', url: "${env.DOCKER_REPOSITORY_URI}/api/v0/repositories/${env.DOCKER_IMAGE_NAMESPACE_DEV}", requestBody: "{ \"enableManifestLists\": true, \"immutableTags\": false, \"longDescription\": \"App Server for AtSea app\", \"name\": \"${env.DOCKER_IMAGE_APP_REPOSITORY}\", \"scanOnPush\": false, \"shortDescription\": \"App Server for AtSea app\", \"tagLimit\": 0, \"visibility\": \"public\"}"
-        // httpRequest acceptType: 'APPLICATION_JSON', authentication: env.DOCKER_REGISTRY_CREDENTIALS_ID, contentType: 'APPLICATION_JSON', httpMode: 'POST', ignoreSslErrors: true, responseHandle: 'NONE', url: "${env.DOCKER_REPOSITORY_URI}/api/v0/repositories/${env.DOCKER_IMAGE_NAMESPACE_DEV}", requestBody: "{ \"enableManifestLists\": true, \"immutableTags\": false, \"longDescription\": \"Database Server for AtSea app\", \"name\": \"${env.DOCKER_IMAGE_DB_REPOSITORY}\", \"scanOnPush\": false, \"shortDescription\": \"Database Server for AtSea app\", \"tagLimit\": 0, \"visibility\": \"public\"}"
+        // httpRequest acceptType: 'APPLICATION_JSON', authentication: env.DOCKER_REGISTRY_CREDENTIALS_ID, contentType: 'APPLICATION_JSON', httpMode: 'POST', ignoreSslErrors: true, responseHandle: 'NONE', url: "${env.DOCKER_REPOSITORY_URI}/api/v0/repositories/${env.DOCKER_IMAGE_NAMESPACE_DEV}", requestBody: "{ \"enableManifestLists\": true, \"immutableTags\": false, \"longDescription\": \"App Server for Signup app\", \"name\": \"${env.DOCKER_IMAGE_APP_REPOSITORY}\", \"scanOnPush\": false, \"shortDescription\": \"App Server for Signup app\", \"tagLimit\": 0, \"visibility\": \"public\"}"
+        // httpRequest acceptType: 'APPLICATION_JSON', authentication: env.DOCKER_REGISTRY_CREDENTIALS_ID, contentType: 'APPLICATION_JSON', httpMode: 'POST', ignoreSslErrors: true, responseHandle: 'NONE', url: "${env.DOCKER_REPOSITORY_URI}/api/v0/repositories/${env.DOCKER_IMAGE_NAMESPACE_DEV}", requestBody: "{ \"enableManifestLists\": true, \"immutableTags\": false, \"longDescription\": \"Database Server for Signup app\", \"name\": \"${env.DOCKER_IMAGE_DB_REPOSITORY}\", \"scanOnPush\": false, \"shortDescription\": \"Database Server for Signup app\", \"tagLimit\": 0, \"visibility\": \"public\"}"
 
         /* Push Docker images */
         docker.withRegistry(env.DOCKER_REGISTRY_URI, env.DOCKER_REGISTRY_CREDENTIALS_ID) {
