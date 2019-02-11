@@ -18,12 +18,12 @@
 				],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:57989/api/users",
+					"raw": "http://localhost:30081/api/users",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "57989",
+					"port": "30081",
 					"path": [
 						"api",
 						"users"
@@ -45,12 +45,12 @@
 				],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:57989/api/users/u1",
+					"raw": "http://localhost:30081/api/users/u1",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "57989",
+					"port": "30081",
 					"path": [
 						"api",
 						"users",
@@ -73,12 +73,12 @@
 				],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:57989/api/users?userName=u1&password=abc",
+					"raw": "http://localhost:30081/api/users?userName=u1&password=abc",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "57989",
+					"port": "30081",
 					"path": [
 						"api",
 						"users"
@@ -115,12 +115,12 @@
 					"raw": "{\n\t\"userName\" : \"u1\",\n\t\"firstName\" : \"User\",\n\t\"lastName\" : \"One\",\n\t\"password\" : \"abc\",\n\t\"emailAddress\" : \"u1@abc.com\",\n\t\"dateOfBirth\" : \"1981-12-31\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:57989/api/users",
+					"raw": "http://localhost:30081/api/users",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "57989",
+					"port": "30081",
 					"path": [
 						"api",
 						"users"
