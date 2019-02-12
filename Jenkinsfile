@@ -18,33 +18,33 @@ node {
     ROOT_SIGNING_PASSPHRASE             = "docker123"
     REPOSITORY_SIGNING_PASSPHRASE       = "docker123"
 
-    stage('Init') {
-        withCredentials([dockerCert(credentialsId: env.DOCKER_UCP_CREDENTIALS_ID, variable: 'DOCKER_CERT_PATH')]) {
-            withCredentials([usernamePassword(credentialsId: env.DOCKER_REGISTRY_CREDENTIALS_ID, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                withEnv(["DOCKER_CONTENT_TRUST=1",
-                         "DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE=$ROOT_SIGNING_PASSPHRASE",
-                         "DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE=$REPOSITORY_SIGNING_PASSPHRASE"]) {
-                    dir("${DOCKER_CERT_PATH}") {
-                        sh """
-                            rm -Rf ~/.docker/trust
-                            docker image rm ${env.DOCKER_IMAGE_NAMESPACE_DEV}/${DOCKER_IMAGE_WEB_REPOSITORY}  || echo "not present"
-                            docker image rm ${env.DOCKER_IMAGE_NAMESPACE_DEV}/${DOCKER_IMAGE_API_REPOSITORY}  || echo "not present"
-                            docker image rm ${env.DOCKER_IMAGE_NAMESPACE_DEV}/${DOCKER_IMAGE_DB_REPOSITORY}   || echo "not present"
-                            docker image rm ${env.DOCKER_IMAGE_NAMESPACE_PROD}/${DOCKER_IMAGE_WEB_REPOSITORY} || echo "not present"
-                            docker image rm ${env.DOCKER_IMAGE_NAMESPACE_PROD}/${DOCKER_IMAGE_API_REPOSITORY} || echo "not present"
-                            docker image rm ${env.DOCKER_IMAGE_NAMESPACE_PROD}/${DOCKER_IMAGE_DB_REPOSITORY}  || echo "not present"
-                            docker image rm ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${DOCKER_IMAGE_WEB_REPOSITORY}  || echo "not present"
-                            docker image rm ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${DOCKER_IMAGE_API_REPOSITORY}  || echo "not present"
-                            docker image rm ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${DOCKER_IMAGE_DB_REPOSITORY}   || echo "not present"
-                            docker image rm ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_PROD}/${DOCKER_IMAGE_WEB_REPOSITORY} || echo "not present"
-                            docker image rm ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_PROD}/${DOCKER_IMAGE_API_REPOSITORY} || echo "not present"
-                            docker image rm ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_PROD}/${DOCKER_IMAGE_DB_REPOSITORY}  || echo "not present"
-                        """
-                    }
-                }
-            }
-        }
-    }
+    // stage('Init') {
+    //     withCredentials([dockerCert(credentialsId: env.DOCKER_UCP_CREDENTIALS_ID, variable: 'DOCKER_CERT_PATH')]) {
+    //         withCredentials([usernamePassword(credentialsId: env.DOCKER_REGISTRY_CREDENTIALS_ID, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+    //             withEnv(["DOCKER_CONTENT_TRUST=1",
+    //                      "DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE=$ROOT_SIGNING_PASSPHRASE",
+    //                      "DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE=$REPOSITORY_SIGNING_PASSPHRASE"]) {
+    //                 dir("${DOCKER_CERT_PATH}") {
+    //                     sh """
+    //                         rm -Rf ~/.docker/trust
+    //                         docker image rm ${env.DOCKER_IMAGE_NAMESPACE_DEV}/${DOCKER_IMAGE_WEB_REPOSITORY}  || echo "not present"
+    //                         docker image rm ${env.DOCKER_IMAGE_NAMESPACE_DEV}/${DOCKER_IMAGE_API_REPOSITORY}  || echo "not present"
+    //                         docker image rm ${env.DOCKER_IMAGE_NAMESPACE_DEV}/${DOCKER_IMAGE_DB_REPOSITORY}   || echo "not present"
+    //                         docker image rm ${env.DOCKER_IMAGE_NAMESPACE_PROD}/${DOCKER_IMAGE_WEB_REPOSITORY} || echo "not present"
+    //                         docker image rm ${env.DOCKER_IMAGE_NAMESPACE_PROD}/${DOCKER_IMAGE_API_REPOSITORY} || echo "not present"
+    //                         docker image rm ${env.DOCKER_IMAGE_NAMESPACE_PROD}/${DOCKER_IMAGE_DB_REPOSITORY}  || echo "not present"
+    //                         docker image rm ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${DOCKER_IMAGE_WEB_REPOSITORY}  || echo "not present"
+    //                         docker image rm ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${DOCKER_IMAGE_API_REPOSITORY}  || echo "not present"
+    //                         docker image rm ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${DOCKER_IMAGE_DB_REPOSITORY}   || echo "not present"
+    //                         docker image rm ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_PROD}/${DOCKER_IMAGE_WEB_REPOSITORY} || echo "not present"
+    //                         docker image rm ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_PROD}/${DOCKER_IMAGE_API_REPOSITORY} || echo "not present"
+    //                         docker image rm ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_PROD}/${DOCKER_IMAGE_DB_REPOSITORY}  || echo "not present"
+    //                     """
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
 
     stage('Clone') {
         /* Let's make sure we have the repository cloned to our workspace */
@@ -90,21 +90,21 @@ node {
                             docker login ${env.DOCKER_REGISTRY_HOSTNAME} -u ${USERNAME} -p ${PASSWORD}
 
                             echo "Signing and pushing Signup Web Server Docker image"
-                            docker trust signer add --key cert.pem ${USERNAME} ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_WEB_REPOSITORY}
+                            # docker trust signer add --key cert.pem ${USERNAME} ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_WEB_REPOSITORY}
                             docker trust key load key.pem
                             docker tag ${docker_web_image.id} ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_WEB_REPOSITORY}:${DOCKER_IMAGE_TAG}
                             docker push ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_WEB_REPOSITORY}:${DOCKER_IMAGE_TAG}
                             docker trust inspect --pretty ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_WEB_REPOSITORY}:${DOCKER_IMAGE_TAG}
 
                             echo "Signing and pushing Signup API Server Docker image"
-                            docker trust signer add --key cert.pem ${USERNAME} ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_API_REPOSITORY}
+                            # docker trust signer add --key cert.pem ${USERNAME} ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_API_REPOSITORY}
                             docker trust key load key.pem
                             docker tag ${docker_api_image.id} ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_API_REPOSITORY}:${DOCKER_IMAGE_TAG}
                             docker push ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_API_REPOSITORY}:${DOCKER_IMAGE_TAG}
                             docker trust inspect --pretty ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_API_REPOSITORY}:${DOCKER_IMAGE_TAG}
 
                             echo "Signing and pushing Signup DB Server Docker image"
-                            docker trust signer add --key cert.pem ${USERNAME} ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_DB_REPOSITORY}
+                            # docker trust signer add --key cert.pem ${USERNAME} ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_DB_REPOSITORY}
                             docker trust key load key.pem
                             docker tag ${docker_db_image.id} ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_DB_REPOSITORY}:${DOCKER_IMAGE_TAG}
                             docker push ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_DB_REPOSITORY}:${DOCKER_IMAGE_TAG}
