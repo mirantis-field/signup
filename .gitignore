@@ -269,3 +269,7 @@ __pycache__/
 
 # Cake - Uncomment if you are using it
 # tools/
+
+init_repo.sh
+delete_repo.sh
+

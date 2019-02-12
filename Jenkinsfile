@@ -62,21 +62,21 @@ node {
                             docker login ${env.DOCKER_REGISTRY_HOSTNAME} -u ${USERNAME} -p ${PASSWORD}
 
                             echo "Signing and pushing Signup Web Server Docker image"
-                            # docker trust signer add --key cert.pem ${USERNAME} ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_WEB_REPOSITORY}
+                            docker trust signer add --key cert.pem ${USERNAME} ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_WEB_REPOSITORY}
                             docker trust key load key.pem
                             docker tag ${docker_web_image.id} ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_WEB_REPOSITORY}:${DOCKER_IMAGE_TAG}
                             docker push ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_WEB_REPOSITORY}:${DOCKER_IMAGE_TAG}
                             docker trust inspect --pretty ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_WEB_REPOSITORY}:${DOCKER_IMAGE_TAG}
 
                             echo "Signing and pushing Signup API Server Docker image"
-                            # docker trust signer add --key cert.pem ${USERNAME} ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_API_REPOSITORY}
+                            docker trust signer add --key cert.pem ${USERNAME} ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_API_REPOSITORY}
                             docker trust key load key.pem
                             docker tag ${docker_api_image.id} ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_API_REPOSITORY}:${DOCKER_IMAGE_TAG}
                             docker push ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_API_REPOSITORY}:${DOCKER_IMAGE_TAG}
                             docker trust inspect --pretty ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_API_REPOSITORY}:${DOCKER_IMAGE_TAG}
 
                             echo "Signing and pushing Signup DB Server Docker image"
-                            # docker trust signer add --key cert.pem ${USERNAME} ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_DB_REPOSITORY}
+                            docker trust signer add --key cert.pem ${USERNAME} ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_DB_REPOSITORY}
                             docker trust key load key.pem
                             docker tag ${docker_db_image.id} ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_DB_REPOSITORY}:${DOCKER_IMAGE_TAG}
                             docker push ${env.DOCKER_REGISTRY_HOSTNAME}/${env.DOCKER_IMAGE_NAMESPACE_DEV}/${env.DOCKER_IMAGE_DB_REPOSITORY}:${DOCKER_IMAGE_TAG}
