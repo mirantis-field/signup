@@ -102,21 +102,11 @@ spec:
         - containerPort: 3306
           protocol: TCP
         volumeMounts:
-        # - mountPath: /run/secrets/postgres-password
-        #   name: secret-0
-        #   readOnly: true
         - name: signup-db-pv-data
           mountPath: /var/lib/mysql
           subPath: signup-data
       restartPolicy: Always
       volumes:
-      # - name: secret-0
-      #   secret:
-      #     # defaultMode: 420
-      #     # items:
-      #     # - key: C:\demo\atsea\devsecrets\postgres_password
-      #     #   path: secret-0
-      #     secretName: postgres-password
       - name: signup-db-pv-data
         persistentVolumeClaim:
           claimName: signup-db-pv-claim
