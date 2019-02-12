@@ -25,10 +25,10 @@ node {
                          "DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE=$ROOT_SIGNING_PASSPHRASE",
                          "DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE=$REPOSITORY_SIGNING_PASSPHRASE"]) {
                     dir("${DOCKER_CERT_PATH}") {
-                        sh """
+                        sh """"
                             docker image rm $(docker image ls -q)
                             rm -Rf ~/.docker/trust
-                        """"
+                        """
                     }
                 }
             }
