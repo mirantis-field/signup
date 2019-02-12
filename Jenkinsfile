@@ -29,7 +29,10 @@ node {
                             docker image rm $(docker image ls -q)
                             rm -Rf ~/.docker/trust
                         """"
-
+                    }
+                }
+            }
+        }
     }
 
     stage('Clone') {
