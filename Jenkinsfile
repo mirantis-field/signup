@@ -27,13 +27,7 @@ node {
                     dir("${DOCKER_CERT_PATH}") {
                         sh """
                             rm -Rf ~/.docker/trust
-                            docker image rm ${env.DOCKER_IMAGE_NAMESPACE_DEV}/${DOCKER_IMAGE_WEB_REPOSITORY} || \
-                            docker image rm ${env.DOCKER_IMAGE_NAMESPACE_DEV}/${DOCKER_IMAGE_API_REPOSITORY} || \
-                            docker image rm ${env.DOCKER_IMAGE_NAMESPACE_DEV}/${DOCKER_IMAGE_DB_REPOSITORY}  || \
-                            docker image rm ${env.DOCKER_IMAGE_NAMESPACE_PROD}/${DOCKER_IMAGE_WEB_REPOSITORY} || \
-                            docker image rm ${env.DOCKER_IMAGE_NAMESPACE_PROD}/${DOCKER_IMAGE_API_REPOSITORY} || \
-                            docker image rm ${env.DOCKER_IMAGE_NAMESPACE_PROD}/${DOCKER_IMAGE_DB_REPOSITORY} || \
-                            echo "done."
+                            docker image rm ${env.DOCKER_IMAGE_NAMESPACE_DEV}/${DOCKER_IMAGE_WEB_REPOSITORY} || docker image rm ${env.DOCKER_IMAGE_NAMESPACE_DEV}/${DOCKER_IMAGE_API_REPOSITORY} || docker image rm ${env.DOCKER_IMAGE_NAMESPACE_DEV}/${DOCKER_IMAGE_DB_REPOSITORY}  || docker image rm ${env.DOCKER_IMAGE_NAMESPACE_PROD}/${DOCKER_IMAGE_WEB_REPOSITORY} || docker image rm ${env.DOCKER_IMAGE_NAMESPACE_PROD}/${DOCKER_IMAGE_API_REPOSITORY} || docker image rm ${env.DOCKER_IMAGE_NAMESPACE_PROD}/${DOCKER_IMAGE_DB_REPOSITORY} || echo "done."
                         """
                     }
                 }
