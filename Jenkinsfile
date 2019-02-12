@@ -18,6 +18,20 @@ node {
     ROOT_SIGNING_PASSPHRASE             = "docker123"
     REPOSITORY_SIGNING_PASSPHRASE       = "docker123"
 
+    stage('Init') {
+        withCredentials([dockerCert(credentialsId: env.DOCKER_UCP_CREDENTIALS_ID, variable: 'DOCKER_CERT_PATH')]) {
+            withCredentials([usernamePassword(credentialsId: env.DOCKER_REGISTRY_CREDENTIALS_ID, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                withEnv(["DOCKER_CONTENT_TRUST=1",
+                         "DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE=$ROOT_SIGNING_PASSPHRASE",
+                         "DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE=$REPOSITORY_SIGNING_PASSPHRASE"]) {
+                    dir("${DOCKER_CERT_PATH}") {
+                        sh """
+                            docker image rm $(docker image ls -q)
+                            rm -Rf ~/.docker/trust
+                        """"
+
+    }
+
     stage('Clone') {
         /* Let's make sure we have the repository cloned to our workspace */
         checkout scm
