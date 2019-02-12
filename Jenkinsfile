@@ -26,7 +26,12 @@ node {
                          "DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE=$REPOSITORY_SIGNING_PASSPHRASE"]) {
                     dir("${DOCKER_CERT_PATH}") {
                         sh """
-                            docker image rm \$(docker image ls -q)
+                            docker image rm ${env.DOCKER_IMAGE_NAMESPACE_DEV}/${DOCKER_IMAGE_WEB_REPOSITORY}
+                            docker image rm ${env.DOCKER_IMAGE_NAMESPACE_DEV}/${DOCKER_IMAGE_API_REPOSITORY}
+                            docker image rm ${env.DOCKER_IMAGE_NAMESPACE_DEV}/${DOCKER_IMAGE_DB_REPOSITORY}
+                            docker image rm ${env.DOCKER_IMAGE_NAMESPACE_PROD}/${DOCKER_IMAGE_WEB_REPOSITORY}
+                            docker image rm ${env.DOCKER_IMAGE_NAMESPACE_PROD}/${DOCKER_IMAGE_API_REPOSITORY}
+                            docker image rm ${env.DOCKER_IMAGE_NAMESPACE_PROD}/${DOCKER_IMAGE_DB_REPOSITORY}
                             rm -Rf ~/.docker/trust
                         """
                     }
