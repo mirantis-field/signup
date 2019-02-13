@@ -10,5 +10,7 @@ ENV MYSQL_DATABASE=signup
 ENV MYSQL_USER=gordon
 ENV MYSQL_PASSWORD=password
 
-ENTRYPOINT ["docker-entrypoint.sh", "--default-authentication-plugin=mysql_native_password"]
-CMD ["mysqld"]
+ENTRYPOINT ["docker-entrypoint.sh"]
+
+EXPOSE 3306 33060
+CMD ["mysqld", "--default-authentication-plugin=mysql_native_password"]
