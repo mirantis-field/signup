@@ -9,3 +9,5 @@ ADD  docker-entrypoint-initdb.d/ /docker-entrypoint-initdb.d/
 ENV MYSQL_DATABASE=signup
 ENV MYSQL_USER=gordon
 ENV MYSQL_PASSWORD=password
+
+ENTRYPOINT ["docker-entrypoint.sh", "--default-authentication-plugin=mysql_native_password"]
