@@ -1,4 +1,4 @@
-DS_Store
+.DS_Store
 target/
 
 ## Ignore Visual Studio temporary files, build results, and
