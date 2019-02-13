@@ -102,7 +102,10 @@ spec:
       containers:
       - env:
         - name: MYSQL_ROOT_PASSWORD
-          value: mysql-password
+          valueFrom:
+            secretKeyRef:
+              name: mysql-password
+              key: mysql_password
         image: database
         imagePullPolicy: IfNotPresent
         name: database
