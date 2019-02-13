@@ -11,3 +11,4 @@ ENV MYSQL_USER=gordon
 ENV MYSQL_PASSWORD=password
 
 ENTRYPOINT ["docker-entrypoint.sh", "--default-authentication-plugin=mysql_native_password"]
+CMD ["mysqld"]
