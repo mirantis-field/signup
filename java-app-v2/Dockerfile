@@ -1,7 +1,7 @@
 #
 # Build the app using maven in a container
 #
-FROM maven:3.6.0-jdk-11-slim AS devenv
+FROM maven:latest AS devenv
 WORKDIR /usr/src/java-app 
 COPY app/pom.xml .
 RUN mvn -B -f pom.xml -s /usr/share/maven/ref/settings-docker.xml dependency:resolve
@@ -12,7 +12,7 @@ RUN mvn -B -s /usr/share/maven/ref/settings-docker.xml package -DskipTests
 # deploy application to tomcat
 #
 
-FROM tomcat:9.0.16-jre11-slim
+FROM tomcat:7-jre8
 LABEL maintainer="Sophia Parafina <sophia.parafina@docker.com>"
 
 # tomcat-users.xml sets up user accounts for the Tomcat manager GUI
@@ -23,7 +23,7 @@ ADD tomcat/run.sh $CATALINA_HOME/bin/run.sh
 RUN chmod +x $CATALINA_HOME/bin/run.sh
 
 # add MySQL JDBC driver jar
-ADD tomcat/mysql-connector-java-8.0.14-bin.jar $CATALINA_HOME/lib/
+ADD tomcat/mysql-connector-java-5.1.36-bin.jar $CATALINA_HOME/lib/
 
 # create mount point for volume with application
 WORKDIR $CATALINA_HOME/webapps/

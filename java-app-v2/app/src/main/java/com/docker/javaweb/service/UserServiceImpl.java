@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.converter.StringHttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
 	public User save(User user) {
 		System.out.println(user.toString());
 		String uri = baseUri;
-		rt.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+		rt.getMessageConverters().add(new MappingJacksonHttpMessageConverter());
 		HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
 		HttpEntity<User> entity = new HttpEntity<User>(user, headers);	

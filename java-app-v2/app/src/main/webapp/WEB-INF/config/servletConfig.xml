@@ -20,7 +20,7 @@
 </bean>
 
 <bean id="jacksonMessageConverter"
-    class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+    class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
 </bean>
 
 <bean
