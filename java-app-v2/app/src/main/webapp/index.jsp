@@ -43,7 +43,7 @@ body {
 	<div class="container">
 		<div class="jumbotron">
 			<div>
-				<h1>Welcome to Signup!</h1>
+				<h1>Welcome to Carlton's House!</h1>
 				<p>To get started, enter your details to register. 
 					Or login.</p>
 			</div>
