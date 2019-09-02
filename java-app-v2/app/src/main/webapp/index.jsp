@@ -43,8 +43,8 @@ body {
 	<div class="container">
 		<div class="jumbotron">
 			<div>
-				<h1>Welcome to Signup!</h1>
-				<p>To get started, enter your details to register. 
+				<h1>Welcome to Docker Signup!</h1>
+				<p>To get started, enter your details to register.
 					Or login.</p>
 			</div>
 
